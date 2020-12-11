@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\nlibrary(dplyr)\nlibrary(ggplot2)\n\ncfg_data <- read.csv(\"PGV_all.csv\")\n\nggplot(cfg_data, aes(BBS, Mean))+\n  geom_point()\n\nggplot(cfg_data, aes(log(IOUT), Mean))+\n  geom_point()\n\nunique(cfg_data$IOUT)\n#Filter out IOUT >= 5e-02\n\nggplot(cfg_data, aes(MINHITS, Mean))+\n  geom_point()\n\ncfg_no_iou <- cfg_data %>% group_by(BBS,MINHITS) %>% summarize(MMean = mean(Mean))\n\nggplot(cfg_no_iou, aes(BBS, MINHITS, z = MMean))+\n  geom_contour_filled()\n",
+    "created" : 1607640184354.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3480645152",
+    "id" : "E30316C7",
+    "lastKnownWriteTime" : 1607641776,
+    "last_content_update" : 1607641776532,
+    "path" : "~/Desktop/CFG_Plotter/main.R",
+    "project_path" : "main.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

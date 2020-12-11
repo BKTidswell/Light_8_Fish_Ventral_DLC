@@ -1,0 +1,8 @@
+[1,"** Installing R Packages: 'dplyr', 'ggplot2'\n"]
+[1,"[1/17] Installing ellipsis...\n"]
+[2,"also installing the dependency ‘rlang’\n\n"]
+[2,"trying URL 'https://cran.rstudio.com/bin/macosx/contrib/4.0/rlang_0.4.9.tgz'\n"]
+[2,"Content type 'application/x-gzip' length 1230708 bytes (1.2 MB)\n====="]
+[2,"==================="]
+[2,"=="]
+[2,"========================\ndownloaded 1.2 MB\n\ntrying URL 'https://cran.rstudio.com/bin/macosx/contrib/4.0/ellipsis_0.3.1.tgz'\n"]

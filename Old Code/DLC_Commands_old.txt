@@ -1,0 +1,218 @@
+You can find detailed instructions at: https://github.com/DeepLabCut/DeepLabCut/blob/master/docs/UseOverviewGuide.md 
+
+conda activate DLC-CPU
+
+pythonw
+
+import deeplabcut
+
+deeplabcut.create_new_project('L8FV','Ben', [/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/Initial_Videos], videotype='.mp4', copy_videos=True, multianimal=True)
+
+config_path = '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/config.yaml'
+
+deeplabcut.extract_frames(config_path, mode='automatic', algo='kmeans', crop=False, user feedback = True)
+
+### CONFIGURE SKELETON HERE ###
+
+deeplabcut.label_frames(config_path)
+
+deeplabcut.check_labels(config_path)
+
+deeplabcut.cropimagesandlabels(config_path)
+
+deeplabcut.create_multianimaltraining_dataset(config_path)
+
+deeplabcut.train_network(config_path, shuffle=1, trainingsetindex=0, gputouse=None, max_snapshots_to_keep=5, autotune=False, displayiters=100, saveiters=100, maxiters=3000, allow_growth=True)
+
+deeplabcut.evaluate_network(config_path, plotting=True)
+
+deeplabcut.evaluate_multianimal_crossvalidate(config_path, Shuffles=[1], edgewisecondition=True, leastbpts=1, init_points=20, n_iter=50)
+
+deeplabcut.extract_save_all_maps(config_path, shuffle=1, Indices=[0, 5])
+
+deeplabcut.analyze_videos(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos'], videotype='.mp4', save_as_csv = True)
+
+deeplabcut.analyze_videos(config_path,['/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos'], videotype='.mp4', save_as_csv = True)
+
+deeplabcut.convert_detections2tracklets(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1'], videotype='mp4', shuffle=1, trainingsetindex=0, track_method='box')
+
+deeplabcut.convert_detections2tracklets(config_path, ['/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1'], videotype='mp4', shuffle=1, trainingsetindex=0, track_method='box')
+
+
+### Optional: Plot Tracks ###
+
+from deeplabcut.utils.make_labeled_video import create_video_from_pickled_tracks
+
+create_video_from_pickled_tracks('/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/TRAINED_OUTPUT_sk.pickle')
+
+create_video_from_pickled_tracks('/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_1_TN_DN_F0_V.mp4', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_1_TN_DN_F0_VDLC_resnet50_L8FVJul4shuffle1_50000_sk.pickle')
+
+ffmpeg -i VIDEO_NAMEDLClabeled.mp4 -pix_fmt yuv420p -crf 18 WORKING_MP4.mp4
+
+ffmpeg -r 10 -f image2 -s 1920x1080 -i /Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_12_TN_DN_F0_V1/frame%03d.png -vcodec libx264 -crf 25  -pix_fmt yuv420p /Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_12_TN_DN_F0_V1/test.mp4
+
+
+#############################
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/TRAINED_OUTPUT_sk.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_29_TN_DN_F2_V1DLC_resnet50_L8FVJul4shuffle1_50000_bx.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_29_TN_DN_F2_V1.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_1_TN_DN_F0_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_1_TN_DN_F0_V.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_8_TN_DN_F0_V1DLC_resnet50_L8FVJul4shuffle1_50000_sk.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_8_TN_DN_F0_V1.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_24_TN_DN_F2_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_24_TN_DN_F2_V.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_24_TN_DN_F2_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_24_TN_DN_F2_V.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/2020_7_28_29_TN_DN_F2_V1DLC_resnet50_L8FVJul4shuffle1_100000_sk.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_20_TN_DN_F0_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_20_TN_DN_F0_V.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/Dark_Videos/2020_9_11_1_TN_DN_F0_V1DLC_resnet50_L8FVJul4shuffle1_50000_bx.pickle', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/Dark_Videos/2020_9_11_1_TN_DN_F0_V1.mp4', min_swap_frac=0.0, min_tracklet_frac=0.0, trail_len=50)
+
+
+
+2020_7_28_29_TN_DN_F2_V1DLClabeled_fixed
+
+deeplabcut.filterpredictions(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4'], videotype='mp4', shuffle=1, track_method = 'skeleton')
+
+
+deeplabcut.filterpredictions(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_29_TN_DN_F2_V1.mp4'], videotype='mp4', shuffle=1, track_method = 'box')
+
+deeplabcut.filterpredictions(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1'], videotype='mp4', shuffle=1, track_method = 'skeleton')
+
+
+deeplabcut.plot_trajectories(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4'],track_method='skeleton',filtered=True)
+
+deeplabcut.plot_trajectories(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4'],track_method='skeleton',filtered=True)
+
+deeplabcut.create_labeled_video(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4'],videotype='.mp4',shuffle=1,draw_skeleton=True,track_method='skeleton',save_frames=False,filtered=True)
+
+deeplabcut.create_labeled_video(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_29_TN_DN_F2_V1.mp4'],videotype='.mp4',shuffle=1,draw_skeleton=True,track_method='box',save_frames=False,filtered=True)
+
+
+### Optional: Learning ####
+
+deeplabcut.add_new_videos(`Full path of the project configuration file*',[`full path of video 4', `full path of video 5'],copy_videos=True/False)
+
+deeplabcut.add_new_videos(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/New_Videos'], videotype='.mp4', copy_videos=True)
+
+
+deeplabcut.analyzeskeleton(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4', videotype='mp4', shuffle=1, trainingsetindex=0, save_as_csv=True, destfolder='/Users/Ben/Desktop/DLC Test')
+
+deeplabcut.extract_outlier_frames(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/VIDEO_NAME.mp4'],shuffle=1,videotype='.mp4',track_method ='skeleton',outlieralgorithm='uncertain',p_bound = 0.5)
+
+deeplabcut.analyze_videos(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4'], videotype='.mp4', save_as_csv = True)
+
+deeplabcut.extract_outlier_frames(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_28_TN_DN_F2_V1.mp4'],shuffle=1,videotype='.mp4',track_method ='skeleton',outlieralgorithm='uncertain',p_bound = 0.5)
+
+
+deeplabcut.analyzeskeleton(config_path, ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4'], videotype='mp4', shuffle=1, trainingsetindex=0, save_as_csv=True, destfolder='/Users/Ben/Desktop')
+
+
+deeplabcut.extract_outlier_frames(config_path,
+                                ['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/2020_7_28_29_TN_DN_F2_V1.mp4'], 
+                                shuffle=1, 
+                                videotype=".mp4", 
+                                track_method ="skeleton",
+				outlieralgorithm='uncertain',
+				p_bound = 0.005)
+
+
+outlieralgorithm: 'fitting', 'jump', or 'uncertain'``
+
+
+deeplabcut.refine_labels(config_path)
+
+deeplabcut.merge_datasets(config_path)
+
+deeplabcut.create_training_dataset(config_path)
+
+deeplabcut.train_network(config_path)
+
+#############################
+
+CLUSTER CONFIG PATH:
+config_path = '/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/config.yaml'
+
+CLUSTER LOGIN
+ssh -Y btidsw01@login.cluster.tufts.edu
+srun -p gpu -n 4 --mem=32g --time=0-8:00:00 --x11=first --pty bash
+module load anaconda
+cd /cluster/tufts/tytelllab/deeplabcut
+source activate_dlc
+
+Check on Job:
+squeue -u btidsw01
+
+Start Jon:
+sbatch train_L8FV_Ben_2020_08_20
+
+SED TO CONVERT FILE PATHS FOR CLUSTER
+
+/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04
+
+sed -i 's|/Users/Ben/Desktop/|/cluster/tufts/tytelllab/btidsw01/|g' config.yaml
+
+In DLC Models:
+
+sed -i 's|/Users/Ben/Desktop/|/cluster/tufts/tytelllab/btidsw01/|g' pose_cfg.yaml
+
+/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/dlc-models/iteration-1/L8FVJul4-trainset95shuffle1/test
+
+/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/dlc-models/iteration-1/L8FVJul4-trainset95shuffle1/train
+
+sed -i 's|/Users/Ben/anaconda2/envs/DLC-CPU/lib/python3.7/site-packages/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt|/cluster/tufts/tytelllab/deeplabcut/pipinstall/lib/python3.6/site-packages/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt|g' pose_cfg.yaml
+
+
+cd /cluster/tufts/tytelllab/deeplabcut
+sbatch train_L8FV_Ben_2020_08_20 
+squeue -u btidsw01
+
+
+/cluster/tufts/tytelllab/btidsw01/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/dlc-models/iteration-0/L8FVJul4-trainset95shuffle1/train/snapshot-100000
+
+#############################
+
+
+Config.yaml Fish Parts: 
+
+
+individuals:
+- individual1
+- individual2
+- individual3
+- individual4
+- individual5
+- individual6
+- individual7
+- individual8
+uniquebodyparts: [topbackleftP,topbackrightP,topfrontleftP,topfrontrightP,bottombackleftP,bottombackrightP,bottomfrontleftP,bottomfrontrightP]
+multianimalbodyparts:
+- head
+- tailbase
+- midline2
+- midline1
+- midline3
+- tailtip
+skeleton:
+- - head
+  - midline1
+- - midline1
+  - midline2
+- - midline2
+  - midline3
+- - midline3
+  - tailbase
+- - tailbase
+  - tailtip
