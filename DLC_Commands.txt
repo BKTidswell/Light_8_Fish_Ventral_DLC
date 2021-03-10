@@ -65,7 +65,7 @@ deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventra
 
 deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-2/2020_7_28_10_TN_DN_F0_V1DLC_resnet50_L8FVJul4shuffle1_50000_bx.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-2/2020_7_28_10_TN_DN_F0_V1.mp4', trail_len=50)
 
-deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_19_TN_DN_F2_V1DLC_resnet50_L8FVJul4shuffle1_50000_bx.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_7_28_19_TN_DN_F2_V1.mp4', trail_len=50)
+deeplabcut.refine_tracklets(config_path, '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_14_TN_DN_F2_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.h5', '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-1/2020_6_29_14_TN_DN_F2_V.mp4', trail_len=50)
 
 deeplabcut.filterpredictions(config_path,['/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2020-07-04/videos/iteration-2/VIDEO_NAME.mp4'], videotype='mp4', shuffle=1, track_method = 'box')
 

@@ -38,8 +38,8 @@ main_video_folder_path = '/Users/Ben/Desktop/Light_8_Fish_Ventral_DLC/L8FV-Ben-2
 
 #iteration 3: 40, 0.0005, 1
 
-bbs = 40
-it = 0.0005
+bbs = 45
+it = 0.005
 mh = 1
 
 prob_cutoff = 0.9

@@ -1,9 +1,9 @@
 {
-    "path": "~/Desktop/CFG_Plotter",
+    "path": "~/Desktop/Light_8_Fish_Ventral_DLC/CFG_Plotter",
     "sortOrder": [
         {
-            "ascending": true,
-            "columnIndex": 2
+            "columnIndex": 2,
+            "ascending": true
         }
     ]
 }

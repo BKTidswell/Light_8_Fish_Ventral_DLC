@@ -65,7 +65,7 @@ def splprep_predict(x,y,prob,maxTime):
 
 #filename = "2020_6_29_24_TN_DN_F2_VDLC_resnet50_L8FVJul4shuffle1_50000_bx.h5"
 
-set_calib = False
+set_calib = True
 set_conf = False
 
 #Not currently working as well as I would like
@@ -86,7 +86,7 @@ video_files = os.listdir(filepath)
 
 for file in video_files:
 
-	if file.endswith("_bx.h5"):
+	if file.endswith("_bx.h5") and "6_29_24" in file:
 
 		print(file)
 

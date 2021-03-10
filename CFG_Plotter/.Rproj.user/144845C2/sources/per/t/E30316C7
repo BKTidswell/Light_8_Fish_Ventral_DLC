@@ -1,6 +1,6 @@
 {
     "id": "E30316C7",
-    "path": "~/Desktop/CFG_Plotter/main.R",
+    "path": "~/Desktop/Light_8_Fish_Ventral_DLC/CFG_Plotter/main.R",
     "project_path": "main.R",
     "type": "r_source",
     "hash": "2582671664",
@@ -11,8 +11,8 @@
     "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
-        "cursorPosition": "25,0",
-        "scrollLine": "2"
+        "cursorPosition": "9,0",
+        "scrollLine": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1607648567,
